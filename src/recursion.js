@@ -99,21 +99,24 @@ var sumBelow = function(n) {
 var range = function(x, y) {
   var result = [];
 
-  // if (x < 0 && y < 0) {
-  //   x = Math.abs(x);
-  //   y = Math.abs(y);
-  // }
-  // if y = x
-  if (y - x === 0) {
-    // base case
-    return (x + 1);
-  } else {
+  if (x < y) {
+    if (y - x <= 1) {
+      return [];
+    }
 
-  range(x, y - 1);
-  result.push(y - 1);
+    result = range(x, y - 1);
+    result.push(y - 1);
+  } else if (x > y) {
+    if (x - y <= 1) {
+      return [];
+    }
+
+    result = range(x, y + 1);
+    result.push(y + 1);
+  }
 
   return result;
-  }
+
 };
 
 // 7. Compute the exponent of a number.
@@ -185,8 +188,6 @@ var palindrome = function(string) {
   }
 
   return palindrome(string.slice(1, -1));
-  // pass string with first and last chars removed
-    // recursive case
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
