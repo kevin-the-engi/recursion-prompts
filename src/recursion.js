@@ -54,7 +54,6 @@ var isEven = function(n) {
   n = Math.abs(n);
 
   if (n === 0) {
-
     return true;
   }
 
@@ -98,6 +97,23 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  var result = [];
+
+  // if (x < 0 && y < 0) {
+  //   x = Math.abs(x);
+  //   y = Math.abs(y);
+  // }
+  // if y = x
+  if (y - x === 0) {
+    // base case
+    return (x + 1);
+  } else {
+
+  range(x, y - 1);
+  result.push(y - 1);
+
+  return result;
+  }
 };
 
 // 7. Compute the exponent of a number.
@@ -106,6 +122,28 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  var isNegative = false;
+
+  if(exp < 0) {
+    exp = exp * -1;
+    isNegative = true;
+  }
+
+  if (exp === 0) {
+    return 1;
+  }
+
+  if (exp === 1) {
+    return base;
+  }
+
+  var result = base * exponent(base, exp - 1);
+
+  if (isNegative === true) {
+    return 1 / result;
+  }
+
+  return result;
 };
 
 // 8. Determine if a number is a power of two.
@@ -113,14 +151,42 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  if (n === 2 || n === 1) {
+    return true;
+  }
+
+  if (n < 2) {
+    return false;
+  }
+
+  return powerOfTwo(n / 2);
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  if (string === '') {
+    return '';
+  }
+
+  return reverse(string.slice(1)) + string[0];
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  // check if last char doesnt equal first char
+  string = string.toLowerCase();
+
+  if (string.length <= 1) {
+    return true;
+  }
+
+  if (string[0] !== string[string.length - 1]) {
+    return false;
+  }
+
+  return palindrome(string.slice(1, -1));
+  // pass string with first and last chars removed
+    // recursive case
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
