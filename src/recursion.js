@@ -353,16 +353,48 @@ var compareStr = function(str1, str2) {
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+  var result = [];
+
+  if (str.length === 0) {
+    return [];
+  }
+
+  result = createArray(str.slice(0, -1));
+  result.push(str[str.length - 1]);
+
+  return result;
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
+  var results = [];
+
+  if (array.length === 0) {
+    return [];
+  }
+
+  results.push(array[array.length - 1]);
+  results = results.concat(reverseArr(array.slice(0, -1)))
+  // results = reverseArr(array.slice(1));
+  // results.push(array[0]);
+
+  return results;
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+  var results = [];
+
+  if (length === 0) {
+    return [];
+  }
+
+  results.push(value);
+  results = results.concat(buildList(value, length - 1));
+
+  return results;
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
@@ -371,17 +403,63 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
+  var results = [];
+
+  if (n === 1) {
+    return ['1'];
+  }
+
+  if (n % 3 === 0 && n % 5 === 0) {
+    results.push('FizzBuzz');
+  } else if (n % 3 === 0) {
+    results.push('Fizz');
+  } else if (n % 5 === 0) {
+    results.push('Buzz');
+  } else {
+    results.push(n.toString());
+  }
+
+  results = (fizzBuzz(n - 1)).concat(results);
+
+  return results;
 };
 
 // 20. Count the occurence of a value in a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+  var result = 0;
+
+  if (array.length === 0) {
+    return 0;
+  }
+
+  if (array[0] === value) {
+    array.shift();
+    result = 1 + countOccurrence(array, value);
+
+    return result;
+  } else {
+    array.shift();
+
+    return countOccurrence(array, value);
+  }
+
 };
 
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+  var results = [];
+
+  if (array.length === 0) {
+    return [];
+  }
+
+  results.push(callback(array[0]));
+  results = results.concat(rMap(array.slice(1), callback));
+
+  return results;
 };
 
 // 22. Write a function that counts the number of times a key occurs in an object.
@@ -389,6 +467,22 @@ var rMap = function(array, callback) {
 // countKeysInObj(obj, 'r') // 1
 // countKeysInObj(obj, 'e') // 2
 var countKeysInObj = function(obj, key) {
+  var result = 0;
+
+  if (typeof obj !== 'object') {
+    return 0;
+  }
+
+  for (var item in obj) {
+    if (item === key) {
+      result += 1 + countKeysInObj(obj[item], key);
+    } else {
+      result += countKeysInObj(obj[item], key);
+    }
+
+  };
+
+  return result;
 };
 
 // 23. Write a function that counts the number of times a value occurs in an object.
@@ -437,6 +531,12 @@ var replaceKeysInObj = function(obj, oldKey, newKey) {
 // fibonacci(5); // [0,1,1,2,3,5]
 // Note: The 0 is not counted.
 var fibonacci = function(n) {
+  var results = [];
+  // check if n is 0
+    // base case return 0
+  //
+
+  return results;
 };
 
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
